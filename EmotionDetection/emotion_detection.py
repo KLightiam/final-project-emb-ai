@@ -10,6 +10,7 @@ def emotion_detector (text_to_analyze):
 
     response_json = json.loads(response.text)
     pick_emotion = response_json['emotionPredictions'][0]['emotion']
+
     anger_score = pick_emotion['anger']
     disgust_score = pick_emotion['disgust']
     fear_score = pick_emotion['fear']
@@ -18,11 +19,18 @@ def emotion_detector (text_to_analyze):
     dominant_emotion = ''
     counter = 0
 
-    for emotion,emotion_value in enumerate(pick_emotion):
+    for emotion, emotion_value in pick_emotion.items():
         if float(emotion_value) > counter:
             counter = float(emotion_value)
             dominant_emotion = emotion
 
 
-    return response.text
+    return {
+        'anger': anger_score,
+        'disgust': disgust_score,
+        'fear': fear_score,
+        'joy': joy_score,
+        'sadness': sadness_score,
+        'dominant_emotion': dominant_emotion
+    }
 
