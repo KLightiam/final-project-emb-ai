@@ -17,7 +17,11 @@ def emotion_analyzer():
     'joy':{response['joy']}, and 'sadness':{response['sadness']}. \
     The dominant emotion is {response['dominant_emotion']}"
 
-    return final_result
+    if not response['dominant_emotion']:
+        return "Invalid text! Please try again!"
+    else:
+        return final_result
+
 
 @app.route('/')
 def render_home():
