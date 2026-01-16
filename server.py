@@ -8,8 +8,20 @@ def emotion_analyzer():
 
     response = emotion_detector(text_to_analyze)
 
-    response_str = ''
-    for key,value in response.items():
-        response_str += f"{key}:{value}" 
+    # response_str = ''
+    # for key,value in response.items():
+    #     response_str += f"{key}:{value}" 
 
-    final_result = f"For the given statement, the system response is {response_str}"
+    final_result = f"For the given statement, the system response is 'anger':{response['anger']}, \
+    'disgust':{response['disgust']}, 'fear':{response['fear']}, \
+    'joy':{response['joy']}, and 'sadness':{response['sadness']}. \
+    The dominant emotion is {response['dominant_emotion']}"
+
+    return final_result
+
+@app.route('/')
+def render_home():
+    return render_template('index.html')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0",port = 5000)
